@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Alchemy</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#ffb3d9">
+    <meta name="description" content="Transform your daily tasks and moods into magical potions">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍄 Mood Alchemy</h1>
+            <p class="subtitle" data-en="Brew your daily potion" data-ru="Создай свой ежедневный эликсир">Brew your daily potion</p>
+            <div class="language-toggle">
+                <button id="langToggle" class="lang-btn">🌍 EN</button>
+            </div>
+        </header>
+
+        <main>
+
+            <!-- Mood Selection -->
+            <section class="mood-section">
+                <h2 data-en="🌈 How do you feel?" data-ru="🌈 Как ты себя чувствуешь?">🌈 How do you feel?</h2>
+                <div class="mood-grid">
+                    <button class="mood-btn" data-mood="joy" data-color="#ffb3d9" data-en="💖 Joy" data-ru="💖 Радость">💖 Joy</button>
+                    <button class="mood-btn" data-mood="calm" data-color="#d8bfd8" data-en="🌸 Calm" data-ru="🌸 Спокойствие">🌸 Calm</button>
+                    <button class="mood-btn" data-mood="tiredness" data-color="#e6e6fa" data-en="🌙 Tiredness" data-ru="🌙 Усталость">🌙 Tiredness</button>
+                    <button class="mood-btn" data-mood="energy" data-color="#ff9ff3" data-en="⭐ Energy" data-ru="⭐ Энергия">⭐ Energy</button>
+                    <button class="mood-btn" data-mood="sadness" data-color="#b19cd9" data-en="💙 Sadness" data-ru="💙 Грусть">💙 Sadness</button>
+                    <button class="mood-btn" data-mood="anger" data-color="#ff6b6b" data-en="🔥 Anger" data-ru="🔥 Злость">🔥 Anger</button>
+                </div>
+            </section>
+
+            <!-- Task Management -->
+            <section class="task-management-section">
+                <button id="manageTasksBtn" class="manage-tasks-btn" data-en="📋 Manage Tasks" data-ru="📋 Управление Задачами">📋 Manage Tasks</button>
+            </section>
+
+            <!-- Diary Note -->
+            <section class="diary-section">
+                <h2 data-en="💝 Today's Note" data-ru="💝 Заметка на сегодня">💝 Today's Note</h2>
+                <textarea id="diaryNote" placeholder="Write a short note about your day..." data-en-placeholder="Write a short note about your day..." data-ru-placeholder="Напиши короткую заметку о своем дне..." maxlength="150"></textarea>
+                <div class="char-count"><span id="charCount">0</span>/150</div>
+            </section>
+
+            <!-- Brew Potion Button -->
+            <section class="brew-section">
+                <button id="brewPotionBtn" class="brew-btn" data-en="🍄 Brew Potion" data-ru="🍄 Создать Эликсир">🍄 Brew Potion</button>
+            </section>
+
+            <!-- Potion Display -->
+            <section id="potionDisplay" class="potion-display hidden">
+                <h2 data-en="✨ Your Daily Potion" data-ru="✨ Твой Ежедневный Эликсир">✨ Your Daily Potion</h2>
+                <div class="potion-container">
+                    <div class="potion-bottle">
+                        <div class="potion-neck"></div>
+                        <div class="potion-body">
+                            <div class="potion-liquid" id="potionLiquid"></div>
+                            <div class="potion-effects" id="potionEffects"></div>
+                        </div>
+                        <div class="potion-base"></div>
+                    </div>
+                    <div class="potion-story" id="potionStory"></div>
+                </div>
+            </section>
+
+            <!-- Potion Collection -->
+            <section class="collection-section">
+                <h2 data-en="🍄 Potion Collection" data-ru="🍄 Коллекция Эликсиров">🍄 Potion Collection</h2>
+                <div id="potionCollection" class="potion-collection"></div>
+            </section>
+        </main>
+
+        <!-- Task Management Modal -->
+        <div id="taskManagementModal" class="task-modal hidden">
+            <div class="task-modal-content">
+                <div class="task-modal-header">
+                    <h2 data-en="📋 Task Management" data-ru="📋 Мои задачи">📋 Task Management</h2>
+                    <button id="closeTaskModal" class="close-btn">×</button>
+                </div>
+                
+                <div class="task-modal-body">
+                    <!-- Add New Task -->
+                    <div class="add-task-section">
+                        <h3 data-en="➕ Add New Task" data-ru="➕ Добавить Новую Задачу">➕ Add New Task</h3>
+                        <div class="task-input-modal">
+                            <input type="text" id="newTaskTitle" placeholder="Enter task title..." data-en-placeholder="Enter task title..." data-ru-placeholder="Введите название задачи..." maxlength="100">
+                            <select id="newTaskCategory">
+                                <option value="work" data-en="💼 Work/Study" data-ru="💼 Работа/Учеба">💼 Work/Study</option>
+                                <option value="home" data-en="🏠 Home/Chores" data-ru="🏠 Дом/Хлопоты">🏠 Home/Chores</option>
+                                <option value="relaxation" data-en="🧘 Relaxation/Meditation" data-ru="🧘 Отдых/Медитация">🧘 Relaxation/Meditation</option>
+                                <option value="social" data-en="👥 Social/Friends" data-ru="👥 Общение/Друзья">👥 Social/Friends</option>
+                                <option value="hobby" data-en="🎨 Hobby/Creativity" data-ru="🎨 Хобби/Творчество">🎨 Hobby/Creativity</option>
+                                <option value="sport" data-en="⚽ Sport/Activity" data-ru="⚽ Спорт/Активность">⚽ Sport/Activity</option>
+                            </select>
+                            <button id="addNewTaskBtn" data-en="Add Task" data-ru="Добавить">Add Task</button>
+                        </div>
+                    </div>
+
+                    <!-- Task List -->
+                    <div class="task-list-section">
+                        <h3 data-en="📝 Your Tasks" data-ru="📝 Ваши Задачи">📝 Your Tasks</h3>
+                        <div id="taskListModal" class="task-list-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
